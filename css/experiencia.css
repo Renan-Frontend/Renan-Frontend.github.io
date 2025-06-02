@@ -1,0 +1,140 @@
+.experiencia {
+	max-width: 1200px;
+	padding: 40px 20px;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: 2fr 2fr;
+	gap: 100px;
+}
+.experiencia .subtitulo {
+	color: #6435ff;
+	max-width: 4ch;
+}
+
+.experiencia-texto {
+	font-size: 2rem;
+	line-height: 1.33;
+
+	margin-bottom: 4rem;
+	color: #312166;
+	margin-top: 4rem;
+	grid-area: 2;
+}
+
+.projetos {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	padding: 20px;
+	gap: 10px 20px;
+	margin-bottom: 2rem;
+	border-radius: 4px;
+	background: #dacfff;
+	position: relative;
+}
+
+.projetos::before {
+	content: "";
+	display: block;
+	width: 4px;
+	height: 20px;
+	background: linear-gradient(#aa5ee4, #d092ff);
+	position: absolute;
+	top: 22px;
+	left: -4px;
+}
+
+.projetos-ano {
+	position: absolute;
+	top: 22px;
+	left: -100px;
+	color: #543ca3;
+	font-weight: 600;
+	font-size: 1rem;
+	text-align: right;
+	width: 80px;
+}
+
+.projetos-titulo {
+	font-size: 1.3rem;
+	line-height: 1.1;
+	font-weight: bold;
+	color: #312166;
+}
+
+.projetos-texto {
+	font-size: 1.5rem;
+	line-height: 1.4;
+	color: #312166;
+	font-weight: 500;
+}
+
+.projetos-habilidades {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	align-content: start;
+}
+
+.projetos-habilidades li {
+	font-size: 1rem;
+	line-height: 1.4;
+	border-radius: 4px;
+	background: #aa91ff;
+	color: #312166;
+	font-weight: bold;
+	padding: 5px 5px;
+}
+
+@media (max-width: 1100px) {
+	.projetos-texto {
+		font-size: 1.1rem;
+	}
+}
+
+@media (max-width: 850px) {
+	.experiencia {
+		grid-template-columns: 1fr;
+	}
+
+	.subtitulo {
+		word-break: normal;
+		text-transform: uppercase;
+		font-size: 3.5rem;
+	}
+
+	.experiencia-texto {
+		font-size: 1.6rem;
+	}
+	.projetos-ano {
+		position: initial;
+		order: 1;
+		width: initial;
+		text-align: left;
+		font-size: 1.2rem;
+	}
+}
+
+@media (max-width: 400px) {
+	.subtitulo {
+		font-size: 3rem;
+	}
+	.experiencia-texto {
+		font-size: 1.4rem;
+	}
+
+	.projetos {
+		display: flex;
+		flex-direction: column;
+	}
+	.projetos-habilidades {
+		flex-wrap: wrap;
+		justify-content: start;
+	}
+	.projetos-habilidades li {
+		font-size: 0.9rem;
+	}
+	.projetos-ano {
+		display: flex;
+		justify-content: end;
+	}
+}

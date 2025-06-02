@@ -1,0 +1,45 @@
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 40px 20px;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+.header-menu {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 15px;
+	justify-content: center;
+}
+
+.header-menu a {
+	font-size: 1.375rem;
+	line-height: 1.3;
+	padding: 10px 20px;
+	text-decoration: none;
+	color: #312166;
+	font-weight: 600;
+	display: block;
+}
+
+@media (max-width: 1000px) {
+	.header-menu a {
+		font-size: 1.1rem;
+	}
+}
+
+@media (max-width: 750px) {
+	.header {
+		flex-direction: column;
+		gap: 40px;
+		padding: 20px;
+	}
+
+	.header a {
+		background-color: #ccbdff;
+		color: #312166;
+		font-weight: 600;
+		border-radius: 4px;
+	}
+}
