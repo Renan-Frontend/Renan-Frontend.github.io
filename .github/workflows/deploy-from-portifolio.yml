@@ -1,0 +1,70 @@
+name: Deploy portfolio to root
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch/ref do repositório portifolio
+        required: false
+        default: feat/pagina-projetos
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-root
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout user site
+        uses: actions/checkout@v4
+        with:
+          path: user-site
+
+      - name: Checkout portfolio source
+        uses: actions/checkout@v4
+        with:
+          repository: Renan-Frontend/portifolio
+          ref: ${{ github.event.inputs.ref || 'feat/pagina-projetos' }}
+          path: portfolio
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: portfolio/package-lock.json
+
+      - name: Install & build
+        working-directory: portfolio
+        run: |
+          npm ci
+          npm run build
+
+      - name: Publish to root (keep curriculo-v1)
+        working-directory: user-site
+        run: |
+          set -euo pipefail
+          if [ ! -d curriculo-v1 ]; then
+            echo "curriculo-v1 ausente — abortando" >&2
+            exit 1
+          fi
+          find . -mindepth 1 -maxdepth 1 \
+            ! -name '.git' \
+            ! -name 'curriculo-v1' \
+            ! -name '.github' \
+            -exec rm -rf {} +
+          cp -a ../portfolio/dist/. .
+          cp -f index.html 404.html
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Sem mudanças."
+            exit 0
+          fi
+          git commit -m "Deploy do portfólio na raiz."
+          git push
